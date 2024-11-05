@@ -16,8 +16,8 @@ class LogisticRegression:
             preds: the predictions of the input features.
         """
         thetaX = np.dot(x, self.parameters)
-        predicted_probs = sigmoid(thetaX)
-        preds = [1 if predicted_prob >= 0.5 else 0 for predicted_prob in predicted_probs]
+        preds = sigmoid(thetaX)
+        #preds = [1 if predicted_prob >= 0.5 else 0 for predicted_prob in predicted_probs]
         return preds
     
     @staticmethod
@@ -32,11 +32,8 @@ class LogisticRegression:
         Returns:
             log_l: the log likelihood of the model parameters according to data x and label y.
         """
-        log_l = 0
-        for i in range(len(y)):
-            log_l += y*np.log(preds) + (1-y) * np.log(1-preds)
-        log_l = log_l / len(y)
-        return log_l
+        log_l = np.sum(y * np.log(preds) + (1 - y) * np.log(1 - preds))
+        return log_l / len(y)
     
     def update_theta(self, gradient: np.array, lr : float = 0.5):
         """
@@ -49,7 +46,7 @@ class LogisticRegression:
         Returns:
             None
         """
-        self.parameters = self.parameters + lr * gradient
+        self.parameters += lr * gradient
         pass
         
     @staticmethod
@@ -65,10 +62,7 @@ class LogisticRegression:
         Returns:
             gradient: the gradient of the log likelihood.
         """
-        gradient = 0
-        for i in range(len(y)):
-            for j in range(len(x)):
-                gradient += (y[i] - preds[i]) * x[i, j]
-        gradient = gradient / len(y)
+        errors = y - preds
+        gradient = np.dot(x.T, errors) / len(y)
         return gradient
 

@@ -25,9 +25,9 @@ def fit(model, x : np.array, y : np.array, x_val:np.array = None, y_val:np.array
         ##############################
         preds = model.predict(x)
         log_l = model.likelihood(preds, y)
-        likelihood_history.append(log_l)
+        likelihood_history[it] = log_l
         gradient = model.compute_gradient(x, y, preds)
-        model.update_theta(model, gradient, lr)
+        model.update_theta(gradient, lr)
         ##############################
         ###      END CODE HERE     ###
         ##############################
