@@ -63,6 +63,6 @@ class LogisticRegression:
             gradient: the gradient of the log likelihood.
         """
         errors = y - preds
-        gradient = np.dot(x, errors) / len(y)
+        gradient = np.dot(x.T, errors) / len(y)
         return gradient
 
