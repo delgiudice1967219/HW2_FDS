@@ -46,7 +46,7 @@ class LogisticRegression:
         Returns:
             None
         """
-        self.parameters += lr * gradient
+        self.parameters += (lr * gradient)
         pass
         
     @staticmethod
@@ -63,6 +63,6 @@ class LogisticRegression:
             gradient: the gradient of the log likelihood.
         """
         errors = y - preds
-        gradient = np.dot(x.T, errors) / len(y)
+        gradient = np.dot(x, errors) / len(y)
         return gradient
 
