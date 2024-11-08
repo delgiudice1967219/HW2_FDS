@@ -17,9 +17,8 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             scores: it's the matrix containing raw scores for each sample and each class. The shape is (N, K)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        predicted = np.dot(X, self.parameters)
+        scores = softmax(predicted)
         return scores
     
     def predict_labels(self, X: np.array) -> np.array:
@@ -32,9 +31,8 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             preds: it's the predicted class for each sample. The shape is (N,)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        scores = self.predict(X)
+        preds = np.argmax(scores, axis=1)
         return preds
     
     @staticmethod
@@ -49,9 +47,10 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             loss: The scalar that is the mean error for each sample.
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        loss = 0
+        for i in range(preds.shape[0]):
+            for j in range(preds.shape[1]):
+                loss += y_onehot[i,j] * np.log(preds[i,j])
         return loss
     
     def update_theta(self, gradient:np.array, lr:float=0.5):
@@ -65,9 +64,7 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             None
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        self.parameters += (lr * gradient)
         pass
     
     @staticmethod
@@ -83,9 +80,8 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             jacobian: A matrix with the partial derivatives of the loss. The shape is (H, K)
         """
-        ##############################
-        ###     YOUR CODE HERE     ###
-        ##############################
+        error = y - preds
+        jacobian = np.dot(x.T, error) / x.shape[0]
         return jacobian
     
     

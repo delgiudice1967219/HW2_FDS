@@ -24,8 +24,5 @@ def softmax(y):
     Returns:
         softmax_scores: it's the matrix containing probability for each sample and each class. The shape is (N, K)
     """
-    ##############################
-    ###     YOUR CODE HERE     ###
-    ##############################
+    softmax_scores = np.exp(y) / np.sum(np.exp(y), axis=1, keepdims=True)
     return softmax_scores
-
