@@ -32,8 +32,10 @@ class LogisticRegression:
         Returns:
             log_l: the log likelihood of the model parameters according to data x and label y.
         """
-        log_l = np.sum(y * np.log(preds) + (1 - y) * np.log(1 - preds))
-        return log_l / len(y)
+        epsilon = 1e-10
+        log_l = np.sum(y * np.log(preds + epsilon) + (1 - y) * np.log(1 - preds + epsilon))
+        
+        return log_l / (len(y) + epsilon) 
     
     def update_theta(self, gradient: np.array, lr : float = 0.5):
         """
