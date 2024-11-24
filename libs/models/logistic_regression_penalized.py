@@ -17,6 +17,7 @@ class LogisticRegressionPenalized(LogisticRegression):
         Returns:
             None
         """
+        
+        # Update the parameters using regularization
         self.parameters += lr * (gradient - (self.lambda_ * self.parameters))
         pass
-    

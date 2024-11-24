@@ -15,9 +15,13 @@ class LogisticRegression:
         Returns:
             preds: the predictions of the input features.
         """
+
+        # Compute the dot product between features and parameters
         thetaX = np.dot(x, self.parameters)
+
+        # Basing on the previous dot product compute the predicted labels
         preds = sigmoid(thetaX)
-        #preds = [1 if predicted_prob >= 0.5 else 0 for predicted_prob in predicted_probs]
+
         return preds
     
     @staticmethod
@@ -33,7 +37,7 @@ class LogisticRegression:
             log_l: the log likelihood of the model parameters according to data x and label y.
         """
 
-        # Add a constant to avoid log of 0 and division by 0
+        # Add a samll constant to avoid log of 0 and division by 0
         epsilon = 1e-10
 
         # Compute the likelihood
@@ -52,6 +56,8 @@ class LogisticRegression:
         Returns:
             None
         """
+
+        # Update the parameters
         self.parameters += (lr * gradient)
         pass
         
@@ -68,7 +74,13 @@ class LogisticRegression:
         Returns:
             gradient: the gradient of the log likelihood.
         """
+
+        # Compute the errors, defined as the diffrence between the true labels and the predicted ones
         errors = y - preds
+
+        # Compute the gradient of the log likelihood, defined as:
+        # - The dot product between the transpose of the input data matrix (x.T) and the errors.
+        # - Then, divide by the number of samples (len(y)) to average over all data points.
         gradient = np.dot(x.T, errors) / len(y)
         return gradient
 
