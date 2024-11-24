@@ -6,10 +6,19 @@ class CustomCNN(nn.Module):
     def __init__(self):
         super(CustomCNN, self).__init__()
 
+        # Define the structure of our CNN
         self.conv1 = nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1)
+        
+        # Batch Normalization
         self.conv1_bn = nn.BatchNorm2d(16)
+
+        # Activation Function
         self.relu1 = nn.ReLU()
+
+        # Dropout
         self.dropout1 = nn.Dropout(0.1)
+
+        # Max Pool
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
 
         self.conv2 = nn.Conv2d(16, 32, kernel_size=3, stride=1, padding=1)

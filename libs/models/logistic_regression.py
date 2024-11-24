@@ -32,7 +32,11 @@ class LogisticRegression:
         Returns:
             log_l: the log likelihood of the model parameters according to data x and label y.
         """
+
+        # Add a constant to avoid log of 0 and division by 0
         epsilon = 1e-10
+
+        # Compute the likelihood
         log_l = np.sum(y * np.log(preds + epsilon) + (1 - y) * np.log(1 - preds + epsilon))
         
         return log_l / (len(y) + epsilon) 
