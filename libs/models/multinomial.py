@@ -47,10 +47,6 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             loss: The scalar that is the mean error for each sample.
         """
-        #loss = 0
-        #for i in range(preds.shape[0]):
-        #    for j in range(preds.shape[1]):
-        #        loss += y_onehot[i,j] * np.log(preds[i,j])
         loss = np.sum(y_onehot * np.log(preds))
         return loss
     
