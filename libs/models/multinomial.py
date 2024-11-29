@@ -17,8 +17,13 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             scores: it's the matrix containing raw scores for each sample and each class. The shape is (N, K)
         """
+
+        # Compute the predicted value as the dot product between the weights and the features
         predicted = np.dot(X, self.parameters)
+        
+        # Compute the probability of each sample to belong to each ckass  
         scores = softmax(predicted)
+        
         return scores
     
     def predict_labels(self, X: np.array) -> np.array:
@@ -31,8 +36,13 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             preds: it's the predicted class for each sample. The shape is (N,)
         """
+        
+        # Retrieve the computed probabilities
         scores = self.predict(X)
+        
+        # The predicted label is the one with the highest probability
         preds = np.argmax(scores, axis=1)
+        
         return preds
     
     @staticmethod
@@ -48,6 +58,7 @@ class SoftmaxClassifier(LogisticRegression):
             loss: The scalar that is the mean error for each sample.
         """
         loss = np.sum(y_onehot * np.log(preds))
+        
         return loss
     
     def update_theta(self, gradient:np.array, lr:float=0.5):
@@ -77,7 +88,12 @@ class SoftmaxClassifier(LogisticRegression):
         Returns:
             jacobian: A matrix with the partial derivatives of the loss. The shape is (H, K)
         """
+        
+        # Compute the error as the difference between real values and predicted one
+        # The gradient of the loss with respect to the predictions
         error = y - preds
+
+        # Compute the Jacobian Matrix, normalizing with respect to the number of samples
         jacobian = np.dot(x.T, error) / x.shape[0]
         return jacobian
     
